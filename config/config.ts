@@ -53,16 +53,31 @@ export default defineConfig({
   mfsu: {},
   chainWebpack(config, { env, webpack }) {
     // webpack 拆包
+    config.optimization.splitChunks({
+      chunks: 'async',
+      minSize: 20000,
+      minRemainingSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 10,
+      maxInitialRequests: 10,
+      enforceSizeThreshold: 50000,
+      automaticNameDelimiter: '_',
+      // name: true,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    });
     /*config.optimization // share the same chunks across different modules
       .splitChunks({
-        chunks: 'async',
-        minSize: 30000,
-        maxSize: 0,
-        minChunks: 1,
-        maxAsyncRequests: 5,
-        maxInitialRequests: 5,
-        automaticNameDelimiter: '_',
-        name: true,
         cacheGroups: {
           vendors: {
             name: 'vendors',
