@@ -1,0 +1,16 @@
+export default {
+  'pages.title': '域名解析',
+  'pages.demo': 'Demo',
+  'pages.welcome': '欢迎使用',
+  'pages.admin': '管理员',
+  'pages.admin.sub': '管理员子账号',
+  'pages.user': 'user',
+  'pages.user.sub': '会员子账号',
+  'pages.login.failure': '登录失败，请重试！',
+  'pages.login.success': '登录成功！2222',
+  'pages.login.phoneLogin.errorMessage': '验证码错误',
+  'pages.login.phoneNumber.placeholder': '请输入手机号！',
+  'pages.login.captcha.placeholder': '请输入验证码！',
+  'pages.login.captcha.required': '验证码是必填项！',
+  'pages.login.phoneLogin.getVerificationCode': '获取验证码',
+};
