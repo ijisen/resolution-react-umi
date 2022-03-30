@@ -50,8 +50,9 @@ export default defineConfig({
   // 如果开启 exportStatic，则会针对每个路由输出 html 文件。
   exportStatic: {},
   // webpack5: {},
-  mfsu: {},
-  chainWebpack(config, { env, webpack }) {
+  // 开启该功能将会自动开启 webpack5 和 dynamicImport.
+  // mfsu: {},
+  /*chainWebpack(config, { env, webpack }) {
     // webpack 拆包
     config.optimization.splitChunks({
       chunks: 'async',
@@ -76,7 +77,7 @@ export default defineConfig({
         },
       },
     });
-    /*config.optimization // share the same chunks across different modules
+    /!*config.optimization // share the same chunks across different modules
       .splitChunks({
         cacheGroups: {
           vendors: {
@@ -104,10 +105,10 @@ export default defineConfig({
             priority: -11
           },
         }
-      });*/
-    /*config.plugin('replace').use(require('webpack').ContextReplacementPlugin).tap(() => {
+      });*!/
+    /!*config.plugin('replace').use(require('webpack').ContextReplacementPlugin).tap(() => {
       return [/moment[\/\\]locale$/, /en|zh-cn/];
-    });*/
+    });*!/
     if (env === 'production') {
       config.plugin('compression-webpack-plugin').use(
         new CompressionWebpackPlugin({
@@ -119,6 +120,6 @@ export default defineConfig({
         }),
       );
     }
-  },
+  },*/
   // chunks: ['reacts', 'antdesigns', 'vendors', 'umi'], // 需要包含 cacheGroups 的包
 });

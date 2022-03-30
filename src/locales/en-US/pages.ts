@@ -1,16 +1,3 @@
 export default {
-  'pages.title': 'Domain Resolution',
-  'pages.demo': 'Demo',
-  'pages.welcome': 'welcome',
-  'pages.admin': 'Admin',
-  'pages.admin.sub': 'Admin Sub',
-  'pages.user': 'user',
-  'pages.user.sub': 'user Sub',
-  'pages.login.failure': 'Login failed, please try again!',
-  'pages.login.success': 'Login successful!111',
-  'pages.login.phoneLogin.errorMessage': 'Verification Code Error',
-  'pages.login.phoneNumber.placeholder': 'Phone Number',
-  'pages.login.captcha.placeholder': 'Verification Code',
-  'pages.login.captcha.required': 'Please input verification code!',
-  'pages.login.phoneLogin.getVerificationCode': 'Get Code',
+  'pages.title': 'DNS',
 };

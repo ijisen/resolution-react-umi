@@ -1,4 +1,6 @@
 export default {
+  'keywords.search': '查询',
+  'keywords.reset': '重置',
   'component.globalHeader.search': '站内搜索',
   'component.globalHeader.search.example1': '搜索提示一',
   'component.globalHeader.search.example2': '搜索提示二',

@@ -4,7 +4,6 @@ import { history, RequestConfig, useIntl } from 'umi';
 import { httpGetUserInfo } from '@/services';
 
 import {
-  PageLoading,
   BasicLayoutProps,
   Settings as LayoutSettings,
 } from '@ant-design/pro-layout';
@@ -92,15 +91,24 @@ export const layout = ({
   const locale = getLocale();
   console.log(locale);
   return {
+    // 是否删除掉所有的自带界面
+    // pure: false,
     title: locale === 'en-US' ? 'Domain Resolution' : '域名解析',
-    siderWidth: 200,
+    siderWidth: 180,
     // logo: 'assets/logo-1.png',
     layout: 'mix',
     navTheme: 'light',
     headerTheme: 'light',
     fixedHeader: true,
     fixSiderbar: true,
+    loading: false,
     disableContentMargin: true,
+    // 控制菜单的收起和展开
+    collapsed: false,
+    // 自定义 collapsed button 的方法
+    collapsedButtonRender: false,
+    // 禁止自动切换到移动页面 false
+    disableMobile: true,
     headerRender: ({ title }) => {
       return <Header title={title} />;
     },

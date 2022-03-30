@@ -1,121 +1,29 @@
 const notFound = './Exception/404';
-const PageLayout = '@/layouts/PageLayout';
+const PageLayout = '@/layouts/PageContainer';
 
 export const menuData = [
   {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/dns',
   },
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    icon: 'dashboard',
+    path: '/dns',
+    name: 'dns',
+    // component: PageLayout,
     routes: [
       {
-        path: '/dashboard',
-        redirect: '/dashboard/analysis',
+        path: '/dns',
+        redirect: '/dns/setting',
       },
       {
-        path: '/dashboard/analysis',
-        name: 'analysis',
-        icon: 'smile',
-        component: './Demo',
+        path: '/dns/setting',
+        name: 'setting',
+        component: './DNS/Settings',
       },
-      {
-        path: '/dashboard/monitor',
-        name: 'monitor',
-        icon: 'smile',
-        component: './Demo',
-      },
-      {
-        path: '/dashboard/workplace',
-        name: 'workplace',
-        layout: false,
-        icon: 'smile',
-        component: './Demo',
-      },
-    ],
-  },
-  {
-    path: '/demo',
-    name: 'demo',
-    component: './Demo',
-  },
-  {
-    path: '/welcome',
-    name: 'welcome',
-    component: './Welcome',
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    access: 'canAdmin',
-    component: PageLayout,
-    routes: [
-      {
-        path: '/admin',
-        redirect: '/admin/sub',
-      },
-      {
-        path: '/admin/sub',
-        name: 'sub',
-        access: 'canAdmin',
-        component: './Demo',
-      },
-    ],
-  },
-  {
-    path: '/member',
-    name: 'user',
-    access: 'canUser',
-    component: './User',
-    routes: [
-      {
-        path: '/member/',
-        redirect: '/member/sub',
-      },
-      {
-        path: '/member/sub',
-        name: 'sub',
-        access: 'canUser',
-        component: './Demo',
-      },
+      { component: notFound },
     ],
   },
   { component: notFound },
 ];
 
-export default [
-  {
-    path: '/user',
-    layout: false,
-    routes: [
-      {
-        path: '/user',
-        redirect: '/user/login',
-      },
-      {
-        path: '/user/login',
-        // layout: false,
-        name: 'login',
-        component: './Login',
-      },
-      {
-        path: '/user/register-result',
-        name: 'register-result',
-        icon: 'smile',
-        component: './Login',
-      },
-      {
-        path: '/user/register',
-        name: 'register',
-        icon: 'smile',
-        component: './Login',
-      },
-      {
-        component: notFound,
-      },
-    ],
-  },
-  ...menuData,
-];
+export default [...menuData];
