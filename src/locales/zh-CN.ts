@@ -1,5 +1,6 @@
 import keywords from './zh-CN/keywords';
 import menu from './zh-CN/menu';
+import message from './zh-CN/message';
 import pages from './zh-CN/pages';
 
 export default {
@@ -10,5 +11,6 @@ export default {
   'layout.user.link.terms': '条款',
   ...pages,
   ...keywords,
+  ...message,
   ...menu,
 };

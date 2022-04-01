@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
-import { useIntl } from 'umi';
 import { filterInputTextSpace } from '@/utils';
 import { SearchData } from '@/services/dns';
+import { setLanguage } from '@/utils/commont_rely';
+import { searchData } from '@/models/dnsSettingsModel';
 
 const { Option } = Select;
 
@@ -20,34 +21,34 @@ function handleChange(value: string) {
   console.log(`selected ${value}`);
 }
 
-const setLanguage = (keys: string) => {
-  const intl = useIntl();
-  return intl.formatMessage({
-    id: keys,
-    defaultMessage: '-',
-  });
-};
-
 interface pageProps {
+  loading: boolean;
+  recordTypeData: any[];
+  hostLineData: any[];
   onSearch: (data: SearchData) => void;
 }
 
-const SearchHeader: FC<pageProps> = ({ onSearch }) => {
+const SearchHeader: FC<pageProps> = ({
+  loading,
+  recordTypeData,
+  hostLineData,
+  onSearch,
+}) => {
   const [form] = Form.useForm();
-  const [, forceUpdate] = useState({});
-
-  // To disable submit button at the beginning.
-  useEffect(() => {
-    forceUpdate({});
-  }, []);
 
   const onFinish = (values: any) => {
     console.log('Finish:', values);
     onSearch(values);
   };
-
   return (
-    <Form form={form} name="search_form" layout="inline" onFinish={onFinish}>
+    <Form
+      form={form}
+      name="search_form"
+      layout="inline"
+      initialValues={searchData}
+      autoComplete="off"
+      onFinish={onFinish}
+    >
       <Form.Item
         label={setLanguage('dns.keywords.host')}
         name="host"
@@ -59,8 +60,12 @@ const SearchHeader: FC<pageProps> = ({ onSearch }) => {
       </Form.Item>
       <Form.Item label={setLanguage('dns.keywords.type')} name="type">
         <Select style={{ width: 120 }} onChange={handleChange}>
-          <Option value="jack">Jack</Option>
-          <Option value="lucy">Lucy</Option>
+          <Option value="">{setLanguage('keyword.all')}</Option>
+          {recordTypeData.map((item) => (
+            <Option key={item.dataKey} value={item.dataKey}>
+              {item.dataValue}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
       <Form.Item
@@ -74,15 +79,26 @@ const SearchHeader: FC<pageProps> = ({ onSearch }) => {
       </Form.Item>
       <Form.Item label={setLanguage('dns.keywords.line')} name="line">
         <Select style={{ width: 120 }} onChange={handleChange}>
-          <Option value="jack">Jack</Option>
-          <Option value="lucy">Lucy</Option>
+          <Option value="">{setLanguage('keyword.all')}</Option>
+          {hostLineData.map((item) => (
+            <Option key={item.dataKey} value={item.dataKey}>
+              {item.dataValue}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
       <Form.Item className="mrn">
-        <Button type="primary" htmlType="submit">
-          {setLanguage('keywords.search')}
+        <Button
+          type="primary"
+          htmlType="submit"
+          disabled={loading}
+          loading={loading}
+        >
+          {setLanguage(loading ? 'keyword.search.loading' : 'keyword.search')}
         </Button>
-        <Button className="mls">{setLanguage('keywords.reset')}</Button>
+        <Button className="mls" disabled={loading}>
+          {setLanguage('keyword.reset')}
+        </Button>
       </Form.Item>
     </Form>
   );

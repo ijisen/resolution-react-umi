@@ -22,6 +22,73 @@ body,
   left: unset;
 }
 
+/**  Result 结果组件样式重写 */
+.ant-result {
+  .ant-result-icon {
+    margin-bottom: 15px;
+
+    > span {
+      font-size: 45px;
+    }
+  }
+
+  .ant-result-title {
+    font-size: 16px;
+    color: #999;
+  }
+
+  .ant-result-extra {
+    margin-top: 15px;
+  }
+}
+
+.ant-table {
+  @border-color: #ebeef5 !important;
+
+  &.ant-table-bordered {
+    > .ant-table-container {
+      border-left-color: @border-color;
+
+      table {
+        border-top-color: @border-color;
+
+        .odd {
+          background-color: #f1f2f8;
+        }
+      }
+
+      .ant-table-thead {
+        tr {
+          th {
+            background: #e7f4fc;
+            //border-bottom-color: #EBEEF5;
+            border-bottom-color: @border-color;
+          }
+        }
+      }
+
+      .ant-table-cell {
+        border-right-color: @border-color;
+      }
+
+      .ant-table-tbody > tr > td {
+        border-bottom-color: @border-color;
+      }
+    }
+  }
+
+  &.ant-table-middle {
+    .ant-table-thead {
+      > tr {
+        > th {
+          padding-top: 10px !important;
+          padding-bottom: 10px !important;
+        }
+      }
+    }
+  }
+}
+
 canvas {
   display: block;
 }
@@ -65,10 +132,12 @@ ol {
 
 .zdns-page-layout {
   padding: 15px;
+
   .ant-layout-content {
     padding: 15px;
     background-color: #fff;
     border-radius: 4px;
+
     .ant-page-header {
       padding: 0 10px 15px 0;
     }

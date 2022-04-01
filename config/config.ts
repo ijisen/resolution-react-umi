@@ -3,6 +3,9 @@ import routes from './routes';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
 
 export default defineConfig({
+  devServer: {
+    port: 8080,
+  },
   // 如果需要自行通过 react-helmet 等方式渲染 title，配 title: false 可禁用内置的 title 渲染机制
   // title: false,
   hash: true,
@@ -122,4 +125,11 @@ export default defineConfig({
     }
   },*/
   // chunks: ['reacts', 'antdesigns', 'vendors', 'umi'], // 需要包含 cacheGroups 的包
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8181/',
+      pathRewrite: { '^/api': '' },
+      changeOrigin: false,
+    },
+  },
 });

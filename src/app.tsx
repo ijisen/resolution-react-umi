@@ -1,36 +1,57 @@
 import React from 'react';
 import { history, RequestConfig, useIntl } from 'umi';
-
 import { httpGetUserInfo } from '@/services';
-
 import {
   BasicLayoutProps,
   Settings as LayoutSettings,
 } from '@ant-design/pro-layout';
 
-const loginPath = '/user/login';
 import Header from '@/component/Header';
 import { getLocale, setLocale } from '@@/plugin-locale/localeExports';
 import { getCookieLanguage } from '@/utils';
+import { RequestOptionsInit } from 'umi-request';
+
+const { NODE_ENV } = process.env;
+const loginPath = '/user/login';
 
 /**
  * request 数据请求配置
  * */
 export const request: RequestConfig = {
   // timeout: 1000,
+  prefix: NODE_ENV === 'development' ? '/api' : '',
   errorConfig: {
     adaptor: (resData) => {
+      console.log(resData);
+      console.log(888888888);
+      new Error('11111111111');
+      if (typeof resData === 'string') {
+        resData = {};
+      }
+      resData.success = false;
+      resData.code = 1000;
+      resData.data = '1118fdsfsdf';
+      resData.message = '8fdsf';
+      console.log(resData);
+      console.log(typeof resData.data);
+      console.log(111111);
       return {
         ...resData,
         // error display type： 0 silent; 1 message.warn; 2 message.error; 4 notification; 9 page
         showType: 0,
-        errorMessage: resData.message,
+        errorMessage: 'resData.message',
       };
     },
   },
   middlewares: [],
   requestInterceptors: [],
-  responseInterceptors: [],
+  responseInterceptors: [
+    (response) => {
+      console.log(response);
+      console.log(666666);
+      return response;
+    },
+  ],
 };
 
 /**
@@ -58,7 +79,7 @@ export async function getInitialState(): Promise<InitialState> {
       // console.log(msg)
       return msg.data;
     } catch (error) {
-      history.push(loginPath);
+      // history.push(loginPath);
     }
     return undefined;
   };
@@ -122,7 +143,7 @@ export const layout = ({
       // 如果没有登录，重定向到 login
       if (!currentUser && location.pathname !== '/user/login') {
         // TODO: 跳转页面待定
-        history.push('/user/login');
+        // history.push('/user/login');
       }
     },
     menuHeaderRender: undefined,

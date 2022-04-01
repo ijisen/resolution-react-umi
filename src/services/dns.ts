@@ -4,13 +4,13 @@ import { request } from 'umi';
 
 export interface SearchData {
   // 主机记录
-  host: string;
+  host?: string;
   // 类型
-  type: string;
+  type?: string;
   // 记录值
-  value: string;
+  value?: string;
   // 线路
-  line: string;
+  line?: string;
 }
 
 export interface SearchDataParams extends SearchData {
@@ -31,11 +31,21 @@ export async function httpGetDNSListData(
   params: SearchDataParams,
   options?: { [key: string]: any },
 ) {
-  return request<Response>('/dns/list', {
+  return request<Response>('/resolution/rr/list', {
     method: 'GET',
     params: {
       ...params,
     },
+    ...(options || {}),
+  });
+}
+
+/** 获取主机线路数据 */
+export async function httpGetDictLineTypeData(options?: {
+  [key: string]: any;
+}) {
+  return request<Response>('/dns/dict/line', {
+    method: 'GET',
     ...(options || {}),
   });
 }
