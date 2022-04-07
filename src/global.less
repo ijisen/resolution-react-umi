@@ -42,10 +42,19 @@ body,
   }
 }
 
+/** 表格样式重写 */
 .ant-table {
   @border-color: #ebeef5 !important;
 
   &.ant-table-bordered {
+    &.ant-table.ant-table-small {
+      font-size: 13px;
+
+      .ant-btn-sm {
+        font-size: 13px;
+      }
+    }
+
     > .ant-table-container {
       border-left-color: @border-color;
 
@@ -53,7 +62,7 @@ body,
         border-top-color: @border-color;
 
         .odd {
-          background-color: #f1f2f8;
+          background-color: #00ff00;
         }
       }
 
@@ -130,6 +139,31 @@ ol {
   }
 }
 
+/** 页面基础布局样式重写 */
+.zdns-basic-layout {
+  .ant-layout-header {
+    background-color: #fff;
+  }
+
+  aside {
+    .ant-pro-sider-logo {
+      padding: 10px;
+
+      .menu-header-render {
+        .anticon {
+          padding-right: 8px;
+        }
+      }
+
+      &:hover {
+        background-color: rgba(200, 200, 200, 0.3);
+        color: @primary-color;
+      }
+    }
+  }
+}
+
+/** 每一个单独页面布局样式 */
 .zdns-page-layout {
   padding: 15px;
 
@@ -137,9 +171,19 @@ ol {
     padding: 15px;
     background-color: #fff;
     border-radius: 4px;
-
+    // 页面标题样式
     .ant-page-header {
       padding: 0 10px 15px 0;
+    }
+
+    // 页面查询组件样式
+    .page-search-form {
+      //padding-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+      .ant-form-item {
+        margin-bottom: 15px;
+      }
     }
   }
 }

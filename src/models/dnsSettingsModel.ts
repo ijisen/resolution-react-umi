@@ -1,15 +1,12 @@
 import { useState, useCallback } from 'react';
-import {
-  httpGetDictLineTypeData,
-  httpGetDNSListData,
-  ResponseData,
-} from '@/services/dns';
-import { InitState } from '@/models/data';
+import { httpGetDNSListData, httpGetDictLineTypeData } from '@/services/dns';
+
+import { InitState, TableData } from '@/types/dns.d';
 
 /**
  * 解析类型
  * */
-export const recordTypeData = [
+const recordTypeData = [
   {
     dataKey: 'A',
     dataValue: 'A',
@@ -47,7 +44,7 @@ export const recordTypeData = [
 /**
  * 解析状态
  * */
-export const recordStatusData = [
+const recordStatusData = [
   {
     dataKey: 1,
     dataValue: '开启解析',
@@ -69,22 +66,28 @@ export const recordStatusData = [
     dataValue: '宕机切换加入的备份IP',
   },
 ];
-export const searchData = {
-  // 主机记录
-  host: '',
-  // 类型
+
+export const initSearchData = {
+  // 必填；待查询解析记录的zone的id，如baidu.com.
+  zone: '',
+  // 如 www.baidu.com.
+  name: undefined,
+  // 类型 AAAA
   type: '',
-  // 记录值
-  value: '',
-  // 线路
-  line: '',
+  // 解析记录值
+  rdata: undefined,
+  // 智能线路的id?
+  view: '',
+  // 解析记录状态(1=开启解析，2=暂停解析，16=宕机切换监控状态，32=宕机切换宕
+  // 机状态，64=宕机切换加入的备份IP)
+  // flags: undefined,
+  pageNumber: 1,
+  pageSize: 5,
 };
 
-const initState = {
+const initState: InitState = {
   searchData: {
-    ...searchData,
-    pageSize: 1,
-    pageNumber: 10,
+    ...initSearchData,
   },
   // 解析类型
   recordTypeData,
@@ -97,7 +100,7 @@ const initState = {
 
 export default function dnsSettingsModel() {
   const [state, setInitState] = useState<InitState>(initState);
-  const [hostLine, setHostLine] = useState([]);
+  const [hostLine, setHostLine] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
   /**
@@ -106,20 +109,16 @@ export default function dnsSettingsModel() {
    * */
   const fetchDNSListData = useCallback(async (params) => {
     console.log(params);
-    const { searchData } = state;
     setLoading(true);
     const res = await httpGetDNSListData({
-      ...searchData,
       ...params,
     });
     console.log(res);
-    console.log(22222222222);
     const { success = false, data = [], message = '' } = res;
-    let tableData: ResponseData = {
+    let tableData: TableData = {
       list: [],
     };
     if (success) {
-      console.log(888888888888);
       tableData = {
         list: [],
         ...data,
@@ -128,7 +127,7 @@ export default function dnsSettingsModel() {
     setInitState({
       ...state,
       searchData: {
-        ...searchData,
+        ...initSearchData,
         ...params,
       },
       tableData: {
@@ -147,21 +146,22 @@ export default function dnsSettingsModel() {
    * */
   const fetchGetDictLineTypeData = () => {
     httpGetDictLineTypeData().then((res) => {
-      const { success = false, data = [] } = res || {};
+      let resData: any[] = [];
+      const { data, success } = res;
       if (success && Array.isArray(data)) {
-        setHostLine(data);
-      } else {
-        setHostLine([]);
+        resData = data;
       }
-      console.log(data);
+      setHostLine(resData);
+      console.log(res);
     });
   };
   /**
    * 页面基础数据配置
    * */
-  const getPageInitData = () => {
-    // fetchGetDictLineTypeData();
+  const getPageInitData = async () => {
+    fetchGetDictLineTypeData();
   };
+
   return {
     loading,
     state,

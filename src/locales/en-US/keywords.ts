@@ -32,6 +32,7 @@ export default {
   'keyword.opt': 'Operating',
   'keyword.opt.success': 'Successful operation',
   'keyword.opt.failed': 'Operation failed',
+  'keyword.page.size': 'per/page',
   'keyword.please.select': 'Please choose',
   'keyword.remove': 'Remove',
   'keyword.remarks': 'Remarks',

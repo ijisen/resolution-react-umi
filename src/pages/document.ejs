@@ -25,6 +25,9 @@
     </div>
 </noscript>
 <div id="root">
+    <h1>1</h1>
+</div>
+<div id="app-page-loading" style="">
     <style>
         html,
         body,
@@ -32,11 +35,24 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
         #root {
             background-repeat: no-repeat;
             background-size: 100% auto;
+        }
+
+        #app-page-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f2f5;
         }
 
         .noscript-container {
@@ -195,29 +211,24 @@
             }
         }
     </style>
-    <div
-            style="
-          display: flex;
+    <div style="display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           height: 100%;
           min-height: 420px;
-        "
-    > <img
-                src="<%= context.config.publicPath + 'assets/logo-3.png'; %>"
-                width="150"
-        />
+        ">
+        <img src="<%= context.config.publicPath + 'assets/logo-3.png'; %>" width="150" />
         <div class="page-loading-warp">
             <div class="ant-spin ant-spin-lg ant-spin-spinning">
-            <span class="ant-spin-dot ant-spin-dot-spin"
-            ><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i
-                ><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i
-                ></span>
+                <span class="ant-spin-dot ant-spin-dot-spin">
+                    <i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i>
+                    <i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i>
+                </span>
             </div>
         </div>
-
     </div>
 </div>
+
 </body>
 </html>

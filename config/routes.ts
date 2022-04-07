@@ -26,4 +26,25 @@ export const menuData = [
   { component: notFound },
 ];
 
-export default [...menuData];
+export default [
+  {
+    path: '/user',
+    name: 'user',
+    hideInMenu: true,
+    menuRender: false,
+    // component: PageLayout,
+    routes: [
+      {
+        path: '/user',
+        redirect: '/user/login',
+      },
+      {
+        path: '/user/login',
+        name: 'login',
+        component: './User/Login',
+      },
+      { component: notFound },
+    ],
+  },
+  ...menuData,
+];

@@ -1,4 +1,6 @@
 export default {
+  'menu.user': '登录',
+  'menu.user.login': '登录',
   'menu.dns': '域名解析',
   'menu.dns.setting': '解析记录',
   'menu.exception.403': '403',

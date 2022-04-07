@@ -18,6 +18,9 @@ export default defineConfig({
   },
   // favicon: '/assets/favicon.png',
   routes: routes,
+  theme: {
+    'primary-color': '#1e5eff',
+  },
   layout: {
     // title: 'page.title',
     // 支持任何不需要 dom 的

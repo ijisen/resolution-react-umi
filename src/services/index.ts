@@ -1,14 +1,17 @@
-// @ts-ignore
-/* eslint-disable */
+/**
+ * 基础数据 - API
+ * */
 import { request } from 'umi';
+import { ResponseCurrentUser } from '@/types/basic';
 
 /** 获取当前的用户 GET /user/getUserInfo */
 export async function httpGetUserInfo(options?: { [key: string]: any }) {
-  return request<API.ResponseCurrentUser>('/user/getUserInfo', {
+  return request<ResponseCurrentUser>('/user/getUserInfo', {
     method: 'GET',
     ...(options || {}),
   });
 }
+
 /*
 
 /!** 退出登录接口 POST /api/login/outLogin *!/

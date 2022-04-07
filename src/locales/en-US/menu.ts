@@ -1,4 +1,6 @@
 export default {
+  'menu.user': 'User',
+  'menu.user.login': 'Login',
   'menu.dns': 'DNS',
   'menu.dns.setting': 'DNS Settings',
   'menu.exception.403': '403',

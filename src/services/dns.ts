@@ -1,38 +1,15 @@
-// @ts-ignore
-/* eslint-disable */
+/**
+ * 域名解析 - API
+ * */
 import { request } from 'umi';
-
-export interface SearchData {
-  // 主机记录
-  host?: string;
-  // 类型
-  type?: string;
-  // 记录值
-  value?: string;
-  // 线路
-  line?: string;
-}
-
-export interface SearchDataParams extends SearchData {
-  pageSize?: number;
-  pageNumber?: number;
-}
-
-export type ResponseData = API.PageInfo & {
-  list?: any[];
-};
-
-type Response = API.Response & {
-  data?: ResponseData;
-};
+import { SearchDataParams } from '@/types/dns';
 
 /** 获取当前域名的解析记录 */
 export async function httpGetDNSListData(
   params: SearchDataParams,
   options?: { [key: string]: any },
 ) {
-  return request<Response>('/resolution/rr/list', {
-    method: 'GET',
+  return request<API.TableResponse>('/resolution/rr/list', {
     params: {
       ...params,
     },
@@ -44,8 +21,7 @@ export async function httpGetDNSListData(
 export async function httpGetDictLineTypeData(options?: {
   [key: string]: any;
 }) {
-  return request<Response>('/dns/dict/line', {
-    method: 'GET',
+  return request<API.TableResponse>('/resolution/view/list', {
     ...(options || {}),
   });
 }

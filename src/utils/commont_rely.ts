@@ -1,4 +1,5 @@
-import { useIntl } from 'umi';
+import { useIntl, getLocale } from 'umi';
+import { EnumLanguageType } from '@/types/basic.d';
 
 export const setLanguage = (keys: string) => {
   const intl = useIntl();
@@ -7,6 +8,17 @@ export const setLanguage = (keys: string) => {
     defaultMessage: '-',
   });
 };
+
+/**
+ * @names：普通文本空格过滤
+ * @params[str] string
+ * @return string
+ * */
+export const isLocaleEn = () => {
+  const locale = getLocale();
+  return locale === EnumLanguageType.en;
+};
+
 /**
  * ANTD 表格行样式渲染
  * @param record

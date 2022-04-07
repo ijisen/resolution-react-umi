@@ -1,4 +1,5 @@
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
+import { Request, Response } from 'express';
 
 const recordTypeData = [
   {
@@ -47,7 +48,7 @@ const recordTypeData = [
   },
 ];
 
-const dnsListData = (req) => {
+const dnsListData = (req: Request) => {
   console.log(req);
   let arr = [];
   for (let i = 1; i++; i < 11) {
@@ -74,7 +75,7 @@ const dnsListData = (req) => {
 };
 export default {
   // dns 列表数据获取
-  'GET /resolution/rr/list': async (req, res) => {
+  'GET /resolution/rr/list': async (req: Request, res: Response) => {
     res.send({
       success: true,
       code: 1000,
@@ -89,7 +90,7 @@ export default {
     });
   },
   // dns 记录类型数据获取
-  'GET /dns/dict/recordType': async (req, res) => {
+  'GET /dns/dict/recordType': async (req: Request, res: Response) => {
     res.send({
       success: true,
       code: 1000,
@@ -99,7 +100,7 @@ export default {
     });
   },
   // dns 主机线路数据获取
-  'GET /dns/dict/line': async (req, res) => {
+  'GET /dns/dict/line': async (req: Request, res: Response) => {
     res.send({
       success: true,
       code: 1000,

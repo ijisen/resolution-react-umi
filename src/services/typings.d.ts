@@ -1,6 +1,3 @@
-// @ts-ignore
-/* eslint-disable */
-
 declare namespace API {
   type Response = {
     success: boolean;
@@ -15,24 +12,11 @@ declare namespace API {
     totalItem?: number;
   };
 
-  type SettlementType = 'online' | 'offline';
-
-  type UserInfo = {
-    userId: number;
-    userName: string;
-    // online || offline
-    settlementType: SettlementType;
-    cellphone: string;
-    userType: string;
+  type TableResponseData = API.PageInfo & {
+    list?: any[];
   };
 
-  type ResponseCurrentUser = Response & {
-    data?: UserInfo;
-  };
-
-  type ResponseList = Response & {
-    data?: PageInfo & {
-      list: any[];
-    };
+  type TableResponse = Response & {
+    data?: TableResponseData;
   };
 }

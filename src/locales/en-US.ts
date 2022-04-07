@@ -1,3 +1,4 @@
+import codeMessage from './en-US/codeMessage';
 import keywords from './en-US/keywords';
 import menu from './en-US/menu';
 import message from './en-US/message';
@@ -9,6 +10,7 @@ export default {
   'layout.user.link.help': 'Help',
   'layout.user.link.privacy': 'Privacy',
   'layout.user.link.terms': 'Terms',
+  ...codeMessage,
   ...menu,
   ...keywords,
   ...message,

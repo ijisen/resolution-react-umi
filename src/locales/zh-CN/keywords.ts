@@ -32,6 +32,7 @@ export default {
   'keyword.opt': '操作',
   'keyword.opt.success': '操作成功',
   'keyword.opt.failed': '操作失败',
+  'keyword.page.size': '条/页',
   'keyword.please.select': '请选择',
   'keyword.remove': '移除',
   'keyword.remarks': '备注',

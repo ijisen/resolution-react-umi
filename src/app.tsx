@@ -1,57 +1,38 @@
 import React from 'react';
-import { history, RequestConfig, useIntl } from 'umi';
-import { httpGetUserInfo } from '@/services';
-import {
-  BasicLayoutProps,
-  Settings as LayoutSettings,
-} from '@ant-design/pro-layout';
+import { history, RequestConfig, getLocale, setLocale } from 'umi';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { BasicLayoutProps } from '@ant-design/pro-layout';
 
 import Header from '@/component/Header';
-import { getLocale, setLocale } from '@@/plugin-locale/localeExports';
+
+import {
+  errorHandler,
+  middlewares,
+  requestInterceptors,
+  responseInterceptors,
+} from '@/utils/request';
 import { getCookieLanguage } from '@/utils';
-import { RequestOptionsInit } from 'umi-request';
+import { isLocaleEn } from '@/utils/commont_rely';
+import { getSessionStorage, setSessionStorage } from '@/utils/sessionStorage';
+
+import { httpGetUserInfo } from '@/services';
+
+import { InitialState, EnumDictKey } from '@/types/basic.d';
 
 const { NODE_ENV } = process.env;
-const loginPath = '/user/login';
 
 /**
  * request 数据请求配置
  * */
 export const request: RequestConfig = {
-  // timeout: 1000,
+  timeout: 60000,
   prefix: NODE_ENV === 'development' ? '/api' : '',
-  errorConfig: {
-    adaptor: (resData) => {
-      console.log(resData);
-      console.log(888888888);
-      new Error('11111111111');
-      if (typeof resData === 'string') {
-        resData = {};
-      }
-      resData.success = false;
-      resData.code = 1000;
-      resData.data = '1118fdsfsdf';
-      resData.message = '8fdsf';
-      console.log(resData);
-      console.log(typeof resData.data);
-      console.log(111111);
-      return {
-        ...resData,
-        // error display type： 0 silent; 1 message.warn; 2 message.error; 4 notification; 9 page
-        showType: 0,
-        errorMessage: 'resData.message',
-      };
-    },
-  },
-  middlewares: [],
-  requestInterceptors: [],
-  responseInterceptors: [
-    (response) => {
-      console.log(response);
-      console.log(666666);
-      return response;
-    },
-  ],
+  // 跳过 umi-request 错误处理中间件
+  skipErrorHandler: true,
+  errorHandler,
+  middlewares,
+  requestInterceptors,
+  responseInterceptors,
 };
 
 /**
@@ -59,42 +40,54 @@ export const request: RequestConfig = {
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
  * */
 
-export interface InitialState {
-  settings?: Partial<LayoutSettings>;
-  currentUser?: API.UserInfo;
-  fetchUserInfo?: () => Promise<API.UserInfo | undefined>;
-}
-
 export async function getInitialState(): Promise<InitialState> {
-  const lang = getCookieLanguage();
-  // console.log(lang)
+  console.log('----getInitialState----');
+  const { redirect } = history.location.query || {};
+  redirect && setSessionStorage(EnumDictKey.REDIRECT, redirect);
+
+  const loginPath = getSessionStorage(EnumDictKey.REDIRECT) || '/user/login';
+
   // 配置页面语言信息
-  setLocale(lang, false);
+  setLocale(getCookieLanguage(), false);
   /**
    * 请求用户信息
    * */
   const fetchUserInfo = async () => {
     try {
-      const msg = await httpGetUserInfo();
-      // console.log(msg)
-      return msg.data;
+      const res = await httpGetUserInfo();
+      console.log(res);
+      if (res && res.success) {
+        let resData = res.data;
+        if (resData && resData?.userId) {
+          return resData;
+        }
+      }
+      return undefined;
     } catch (error) {
-      // history.push(loginPath);
+      console.log(error);
+      return undefined;
     }
-    return undefined;
   };
-  // 如果是登录页面，不执行
-  if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: {},
-    };
+
+  const currentUser = await fetchUserInfo();
+  document.getElementById('app-page-loading')?.remove();
+  console.log(`get currentUser: ${currentUser}`);
+
+  const isLoginPage = history.location.pathname === loginPath;
+  if (currentUser) {
+    // 已登录  是登录页 返回首页
+    if (isLoginPage) {
+      history.push('/');
+    }
+  } else {
+    // 未登录  不是登录页 返回登录页
+    if (!isLoginPage) {
+      history.push(loginPath);
+    }
   }
-  console.log(888888);
   return {
     fetchUserInfo,
+    currentUser,
     settings: {},
   };
 }
@@ -108,21 +101,23 @@ export const layout = ({
 }: {
   initialState: InitialState;
 }): BasicLayoutProps => {
+  console.log('---- ProLayout ----');
   // 获取语言
-  const locale = getLocale();
-  console.log(locale);
+  const isEn = isLocaleEn();
+  // console.log(locale);
   return {
     // 是否删除掉所有的自带界面
     // pure: false,
-    title: locale === 'en-US' ? 'Domain Resolution' : '域名解析',
+    title: isEn ? 'Domain Resolution' : '域名解析',
+    logo: '/assets/logo-3.png',
+    className: 'zdns-basic-layout',
     siderWidth: 180,
-    // logo: 'assets/logo-1.png',
+    loading: false,
     layout: 'mix',
     navTheme: 'light',
     headerTheme: 'light',
     fixedHeader: true,
     fixSiderbar: true,
-    loading: false,
     disableContentMargin: true,
     // 控制菜单的收起和展开
     collapsed: false,
@@ -130,35 +125,34 @@ export const layout = ({
     collapsedButtonRender: false,
     // 禁止自动切换到移动页面 false
     disableMobile: true,
-    headerRender: ({ title }) => {
-      return <Header title={title} />;
+    headerRender: ({ title, logo }) => {
+      return <Header title={title} logo={logo} />;
     },
-    // rightContentRender: () => <RightContent />,
-    // footerRender: () => <Footer />,
+    menuHeaderRender: () => {
+      const redirect = getSessionStorage(EnumDictKey.REDIRECT);
+      if (!redirect) {
+        return false;
+      }
+      return (
+        <div
+          onClick={() => (window.location.href = redirect)}
+          className="menu-header-render"
+        >
+          <ArrowLeftOutlined />
+          <span>{isEn ? 'Return' : '返回'}</span>
+        </div>
+      );
+    },
     onPageChange: () => {
-      const { currentUser } = initialState;
+      const { currentUser } = initialState || {};
       const { location } = history;
       console.log(currentUser);
       console.log('------ onPageChange ------ ');
       // 如果没有登录，重定向到 login
       if (!currentUser && location.pathname !== '/user/login') {
-        // TODO: 跳转页面待定
-        // history.push('/user/login');
+        history.push('/user/login');
       }
     },
-    menuHeaderRender: undefined,
-    // menuDataRender={() => routes}
-    /*menuItemRender: (item, dom) => (
-      <Link to={item.path}
-            onClick={() => {
-              console.log(item);
-              console.log(dom);
-              setPathname(item.path || '/welcome');
-            }}
-      >
-        {dom}
-      </Link>
-    ),*/
     ...initialState?.settings,
   };
 };
