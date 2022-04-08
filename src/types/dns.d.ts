@@ -1,10 +1,19 @@
 /**
  * 域名解析 - TypeScript
  * */
+
+export enum EnumDNSKeywords {
+  // 默认线路标识符
+  OTHERS = 'others',
+}
+
+// 数据字典映射
 type DictDataItem = {
   dataKey: string | number;
   dataValue: string | number;
+  desc?: string;
 };
+
 //  查询参数
 export interface SearchDataParams {
   // 必填；待查询解析记录的zone的id，如baidu.com.
@@ -23,6 +32,7 @@ export interface SearchDataParams {
   pageSize?: number;
   pageNumber?: number;
 }
+
 // 表格数据Item
 export interface ColumnsItem {
   id: string;

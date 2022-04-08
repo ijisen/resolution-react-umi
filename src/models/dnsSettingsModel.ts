@@ -10,34 +10,42 @@ const recordTypeData = [
   {
     dataKey: 'A',
     dataValue: 'A',
+    desc: '将域名指向一个IPV4地址',
   },
   {
     dataKey: 'AAAA',
     dataValue: 'AAAA',
+    desc: '将域名指向一个IPV6地址',
   },
   {
     dataKey: 'CNAME',
     dataValue: 'CNAME',
-  },
-  {
-    dataKey: 'MX',
-    dataValue: 'MX',
-  },
-  {
-    dataKey: 'TXT',
-    dataValue: 'TXT',
-  },
-  {
-    dataKey: 'CAA',
-    dataValue: 'CAA',
+    desc: '将域名指向另外一个域名',
   },
   {
     dataKey: 'NS',
     dataValue: 'NS',
+    desc: '将子域名指定其他DNS服务器解析',
+  },
+  {
+    dataKey: 'MX',
+    dataValue: 'MX',
+    desc: '将域名指向邮件服务器地址',
   },
   {
     dataKey: 'SRV',
     dataValue: 'SRV',
+    desc: '记录提供特定的服务的服务器',
+  },
+  {
+    dataKey: 'TXT',
+    dataValue: 'TXT',
+    desc: '文本长度限制512，通常做SPF记录（反垃圾邮件）',
+  },
+  {
+    dataKey: 'CAA',
+    dataValue: 'CAA',
+    desc: 'CA证书颁发机构授权校验',
   },
 ];
 
@@ -82,7 +90,7 @@ export const initSearchData = {
   // 机状态，64=宕机切换加入的备份IP)
   // flags: undefined,
   pageNumber: 1,
-  pageSize: 5,
+  pageSize: 10,
 };
 
 const initState: InitState = {

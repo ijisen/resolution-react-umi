@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
+import { FormattedMessage } from 'umi';
 import { Select } from 'antd';
-import { setLanguage } from '@/utils/commont_rely';
 
 /** 分页切换组件 - Paging switch*/
 
@@ -31,7 +31,9 @@ const PageSwitch: FC<PageInit> = ({ loading, pageSize, onChange }) => {
           </Option>
         ))}
       </Select>
-      <span className="plm">{setLanguage('keyword.page.size')}</span>
+      <span className="plm">
+        <FormattedMessage id="keywords.page.size" />
+      </span>
     </div>
   );
 };

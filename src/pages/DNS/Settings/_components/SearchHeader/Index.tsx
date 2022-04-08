@@ -1,4 +1,5 @@
 import React, { FC, memo } from 'react';
+import { FormattedMessage } from 'umi';
 import { Form, Input, Button, Select, Row } from 'antd';
 
 import { filterInputTextSpace } from '@/utils';
@@ -69,13 +70,11 @@ const SearchHeader: FC<PageInit> = memo(
 
           {/** 记录类型 */}
           <div style={{ width: 220, marginRight: 10 }}>
-            <Form.Item
-              labelCol={{ span: 6 }}
-              label={setLanguage('dns.keywords.type')}
-              name="type"
-            >
+            <Form.Item label={setLanguage('dns.keywords.type')} name="type">
               <Select>
-                <Option value="">{setLanguage('keyword.all')}</Option>
+                <Option value="">
+                  <FormattedMessage id="keywords.all" />
+                </Option>
                 {recordTypeData.map((item) => (
                   <Option key={item.dataKey} value={item.dataKey}>
                     {item.dataValue}
@@ -100,15 +99,13 @@ const SearchHeader: FC<PageInit> = memo(
           </div>
           {/** 智能线路的 */}
           <div style={{ width: 220, marginRight: 10 }}>
-            <Form.Item
-              labelCol={{ span: 6 }}
-              label={setLanguage('dns.keywords.line')}
-              name="view"
-            >
+            <Form.Item label={setLanguage('dns.keywords.line')} name="view">
               <Select>
-                <Option value="">{setLanguage('keyword.all')}</Option>
+                <Option value="">
+                  <FormattedMessage id="keywords.all" />
+                </Option>
                 {hostLineData.map((item) => (
-                  <Option key={item.view} value={item.ID}>
+                  <Option key={item.view} value={item.id}>
                     {item.name}
                   </Option>
                 ))}
@@ -124,7 +121,7 @@ const SearchHeader: FC<PageInit> = memo(
                 loading={loading}
               >
                 {setLanguage(
-                  loading ? 'keyword.search.loading' : 'keyword.search',
+                  loading ? 'keywords.search.loading' : 'keywords.search',
                 )}
               </Button>
               <Button
@@ -132,7 +129,7 @@ const SearchHeader: FC<PageInit> = memo(
                 disabled={loading}
                 onClick={handleClearSearch}
               >
-                {setLanguage('keyword.reset')}
+                <FormattedMessage id="keywords.reset" />
               </Button>
             </Form.Item>
           </div>

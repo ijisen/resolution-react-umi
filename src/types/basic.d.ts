@@ -6,28 +6,30 @@ import { Settings as LayoutSettings } from '@ant-design/pro-layout';
 
 // 枚举变量数据
 export enum EnumDictKey {
-  // redirect 变量名
-  REDIRECT = 'redirect',
-  // 查询
-  SEARCH = 'search',
   // 清空
   CLEAR = 'clear',
+  // 新增
+  CREATE = 'create',
   // 删除
   DELETE = 'del',
-  // 编辑
-  EDIT = 'edit',
-  // 暂停
-  STOP = 'stop',
-  // 开始
-  START = 'start',
-  // 重新开始
-  RESTART = 'reStart',
   // 下载
   DOWN = 'down',
-  // 导入
-  IMPORT = 'import',
+  // 编辑
+  EDIT = 'edit',
   // 导出
   EXPORT = 'export',
+  // 导入
+  IMPORT = 'import',
+  // redirect 变量名
+  REDIRECT = 'redirect',
+  // 重新开始
+  RESTART = 'reStart',
+  // 查询
+  SEARCH = 'search',
+  // 开始
+  START = 'start',
+  // 暂停
+  STOP = 'stop',
 }
 
 // 用户类型枚举

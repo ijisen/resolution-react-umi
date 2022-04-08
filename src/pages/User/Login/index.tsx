@@ -1,5 +1,7 @@
 import React, { FC, useEffect } from 'react';
+import { FormattedMessage } from 'umi';
 import { Button, Layout, Result } from 'antd';
+
 import { getSessionStorage } from '@/utils/sessionStorage';
 import { setLanguage } from '@/utils/commont_rely';
 
@@ -22,7 +24,7 @@ const PageContent: FC = (props) => {
               window.location.href = redirect;
             }}
           >
-            {setLanguage('keyword.return.home')}
+            <FormattedMessage id="keywords.return.home" />
           </Button>
         )}
       </Content>

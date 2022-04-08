@@ -1,6 +1,7 @@
 import { defineConfig } from 'umi';
 import routes from './routes';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
+import theme from './theme';
 
 export default defineConfig({
   devServer: {
@@ -18,9 +19,7 @@ export default defineConfig({
   },
   // favicon: '/assets/favicon.png',
   routes: routes,
-  theme: {
-    'primary-color': '#1e5eff',
-  },
+  theme,
   layout: {
     // title: 'page.title',
     // 支持任何不需要 dom 的
