@@ -34,13 +34,21 @@ const getDrawerTitle = (role: EnumDictKey) => {
   return <FormattedMessage id="dns.btn.create" />;
 };
 
-const addRecordComponent: FC<PageInit> = memo(
-  forwardRef(({ recordTypeData, hostLineData, onSubmit }, ref) => {
+type DrawerRef = {
+  operations(): void;
+};
+
+const addRecordComponent = forwardRef<DrawerRef, PageInit>(
+  ({ recordTypeData, hostLineData, onSubmit }, ref) => {
     const [visible, setVisible] = useState(false);
     const [role, setRole] = useState(EnumDictKey.CREATE);
+    const operations = () => {
+      console.log('options');
+    };
     useImperativeHandle(ref, () => ({
-      // changeVal 就是暴露给父组件的方法
-      changeVal: (newVal: string) => {},
+      operations: () => {
+        console.log(operations);
+      },
     }));
 
     const handleShowModel = (role: EnumDictKey, data: {}) => {
@@ -104,7 +112,7 @@ const addRecordComponent: FC<PageInit> = memo(
         />
       </Drawer>
     );
-  }),
+  },
 );
 
-export default addRecordComponent;
+export default memo(addRecordComponent);

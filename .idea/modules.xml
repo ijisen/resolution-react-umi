@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/domain-resolution.iml" filepath="$PROJECT_DIR$/.idea/domain-resolution.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/resolution-react-umi.iml" filepath="$PROJECT_DIR$/.idea/resolution-react-umi.iml" />
     </modules>
   </component>
 </project>

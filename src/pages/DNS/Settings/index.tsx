@@ -69,8 +69,11 @@ const btnOptGroup = [
   },
 ];
 
+type DrawerRef = {
+  operations(): void;
+};
 const PageContent: FC = (props) => {
-  const actionRef = useRef();
+  const actionRef = useRef<any>();
   const { domain = '', redirect } = history.location.query || {};
   const { loading, state, hostLineData, fetchDNSListData, getPageInitData } =
     useModel('dnsSettingsModel', (model) => ({
