@@ -51,11 +51,20 @@ const inputTextareaFormat = (str: string) => {
 };
 
 /**
- * @names：普通文本空格过滤
+ * @names：普通文本过滤所有的空格
  * @params[str] string
  * @return string
  * */
 export const filterInputTextSpace = (str: string) => {
+  return str.replace(/\s+/g, '');
+};
+
+/**
+ * @names：普通文本过滤连续的空格
+ * @params[str] string
+ * @return string
+ * */
+export const filterInputMultiTextSpace = (str: string) => {
   return str.replace(/\s+/g, ' ').trim();
 };
 

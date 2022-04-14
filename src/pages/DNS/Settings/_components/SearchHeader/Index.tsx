@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { FormattedMessage } from 'umi';
 import { Form, Input, Button, Select, Row } from 'antd';
 
-import { filterInputTextSpace } from '@/utils';
+import { filterInputMultiTextSpace, filterInputTextSpace } from '@/utils';
 import { setLanguage } from '@/utils/commont_rely';
 
 import { SearchDataParams } from '@/types/dns.d';
@@ -91,7 +91,7 @@ const SearchHeader: FC<PageInit> = memo(
               label={setLanguage('dns.keywords.value')}
               name="rdata"
               normalize={(value, prevValue, prevValues) =>
-                filterInputTextSpace(value)
+                filterInputMultiTextSpace(value)
               }
             >
               <Input placeholder={setLanguage('dns.keywords.value')} />

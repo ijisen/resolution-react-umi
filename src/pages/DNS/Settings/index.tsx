@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { FormattedMessage, history, useIntl, useModel } from 'umi';
 import { Button, Layout, message as $Message, PageHeader, Result } from 'antd';
 import classNames from 'classnames';
@@ -70,6 +70,7 @@ const btnOptGroup = [
 ];
 
 const PageContent: FC = (props) => {
+  const actionRef = useRef();
   const { domain = '', redirect } = history.location.query || {};
   const { loading, state, hostLineData, fetchDNSListData, getPageInitData } =
     useModel('dnsSettingsModel', (model) => ({
@@ -241,6 +242,8 @@ const PageContent: FC = (props) => {
                 </Button>
               ))}
               <AddRecordComponent
+                // actionRef={actionRef}
+
                 recordTypeData={recordTypeData}
                 hostLineData={hostLineData}
                 onSubmit={(data) => {

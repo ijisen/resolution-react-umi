@@ -20,22 +20,16 @@ const IPv6Reg = new RegExp(
     ')(%[0-9a-zA-Z-.:]{1,})?$',
 );
 
-function isIPv4(s) {
+export const isIPv4 = (s: string) => {
   return IPv4Reg.test(s);
-}
+};
 
-function isIPv6(s) {
+export const isIPv6 = (s: string) => {
   return IPv6Reg.test(s);
-}
+};
 
-function isIP(s) {
+export const isIP = (s: string) => {
   if (isIPv4(s)) return 4;
   if (isIPv6(s)) return 6;
   return 0;
-}
-
-module.exports = {
-  isIP,
-  isIPv4,
-  isIPv6,
 };

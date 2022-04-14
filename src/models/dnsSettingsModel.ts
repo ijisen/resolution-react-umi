@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
-import { httpGetDNSListData, httpGetDictLineTypeData } from '@/services/dns';
+import { useCallback, useState } from 'react';
+import { httpGetDictLineTypeData, httpGetDNSListData } from '@/services/dns';
 
-import { InitState, TableData } from '@/types/dns.d';
+import { EnumRecordStatusData, InitState, TableData } from '@/types/dns.d';
 
 /**
  * 解析类型
@@ -11,41 +11,49 @@ const recordTypeData = [
     dataKey: 'A',
     dataValue: 'A',
     desc: '将域名指向一个IPV4地址',
+    descEn: 'IPV4 address',
   },
   {
     dataKey: 'AAAA',
     dataValue: 'AAAA',
     desc: '将域名指向一个IPV6地址',
+    descEn: 'IPv6 address',
   },
   {
     dataKey: 'CNAME',
     dataValue: 'CNAME',
     desc: '将域名指向另外一个域名',
+    descEn: 'Canonical name',
   },
   {
     dataKey: 'NS',
     dataValue: 'NS',
     desc: '将子域名指定其他DNS服务器解析',
+    descEn: 'Name server',
   },
   {
     dataKey: 'MX',
     dataValue: 'MX',
     desc: '将域名指向邮件服务器地址',
+    descEn: 'Mail exchange',
   },
   {
     dataKey: 'SRV',
     dataValue: 'SRV',
     desc: '记录提供特定的服务的服务器',
+    descEn: 'Service locator',
   },
   {
     dataKey: 'TXT',
     dataValue: 'TXT',
     desc: '文本长度限制512，通常做SPF记录（反垃圾邮件）',
+    descEn: 'Text',
   },
   {
     dataKey: 'CAA',
     dataValue: 'CAA',
     desc: 'CA证书颁发机构授权校验',
+    descEn: 'Certificate Authority Authorizatio',
   },
 ];
 
@@ -54,23 +62,23 @@ const recordTypeData = [
  * */
 const recordStatusData = [
   {
-    dataKey: 1,
+    dataKey: EnumRecordStatusData.START,
     dataValue: '开启解析',
   },
   {
-    dataKey: 2,
+    dataKey: EnumRecordStatusData.STOP,
     dataValue: '暂停解析',
   },
   {
-    dataKey: 16,
+    dataKey: EnumRecordStatusData.DowntimeSwitchMonitor,
     dataValue: '宕机切换监控状态',
   },
   {
-    dataKey: 32,
+    dataKey: EnumRecordStatusData.DowntimeSwitchDowntime,
     dataValue: '宕机切换宕机状态',
   },
   {
-    dataKey: 64,
+    dataKey: EnumRecordStatusData.DowntimeToBackupIP,
     dataValue: '宕机切换加入的备份IP',
   },
 ];
