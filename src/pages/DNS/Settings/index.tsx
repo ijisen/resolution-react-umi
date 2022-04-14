@@ -108,6 +108,7 @@ const PageContent: FC = (props) => {
     console.log(`handleOptBtnClick ${role}`);
     switch (role) {
       case EnumDictKey.CREATE:
+        console.log(actionRef);
         // 新增记录
         break;
       case EnumDictKey.IMPORT:
@@ -242,8 +243,7 @@ const PageContent: FC = (props) => {
                 </Button>
               ))}
               <AddRecordComponent
-                // actionRef={actionRef}
-
+                ref={actionRef}
                 recordTypeData={recordTypeData}
                 hostLineData={hostLineData}
                 onSubmit={(data) => {
